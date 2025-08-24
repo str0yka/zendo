@@ -1,0 +1,80 @@
+:global(html) {
+  --zendo--packs-page-navigation-height: 98px;
+
+  @include tablet {
+    --zendo--packs-page-navigation-height: 64px;
+  }
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 12px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.item {
+  background-color: var(--color-gray-100);
+  border-radius: 6px;
+  height: 96px;
+  display: flex;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.content {
+  padding: 12px;
+}
+
+.counterContainer {
+  writing-mode: sideways-lr;
+  background-color: var(--color-gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+}
+
+.counter {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-gray);
+}
+
+.navigation {
+  height: var(--zendo--packs-page-navigation-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column-reverse;
+  gap: 12px;
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.placeholder {
+  height: calc(100vh - var(--zendo--header-height) - var(--zendo--packs-page-navigation-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

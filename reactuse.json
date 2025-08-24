@@ -1,0 +1,7 @@
+{
+  "ts": true,
+  "aliases": {
+    "hooks": "src/shared/lib/hooks",
+    "utils": "src/shared/lib/helpers"
+  }
+}

@@ -1,0 +1,7 @@
+.container {
+  height: calc(100vh - (var(--zendo--header-height)));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

@@ -1,0 +1,64 @@
+$mobile: 320px;
+$tablet: 768px;
+$desktop: 1024px;
+
+@mixin mobile {
+  @media (min-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@mixin mobile-only {
+  @media (max-width: #{$tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media (min-width: $tablet) and (max-width: #{$desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop-only {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+// Orientation Mixins
+@mixin landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin portrait {
+  @media (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+@mixin light-mode {
+  @media (prefers-color-scheme: light) {
+    @content;
+  }
+}

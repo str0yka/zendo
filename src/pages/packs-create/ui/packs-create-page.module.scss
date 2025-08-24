@@ -1,0 +1,14 @@
+.container {
+  height: calc(100vh - var(--zendo--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

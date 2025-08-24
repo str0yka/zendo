@@ -1,0 +1,9 @@
+.ellipsisText {
+  display: -webkit-box;
+  word-break: break-all;
+  overflow: hidden;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--zendo--text-clamp-lines, 1);
+  line-clamp: var(--zendo--text-clamp-lines, 1);
+}

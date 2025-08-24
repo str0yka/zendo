@@ -1,0 +1,11 @@
+:global(html) {
+  --zendo--header-height: 86px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--zendo--header-height);
+  border-bottom: 1px solid var(--color-gray-100);
+}
