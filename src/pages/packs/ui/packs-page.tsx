@@ -1,30 +1,21 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { observer } from 'mobx-react-lite';
 import { Controller, useForm } from 'react-hook-form';
 import { Link as ReactRouterLink } from 'react-router';
 import z from 'zod';
 
-import { PackCard } from '@entities/pack';
+import { PackCard, packsStore } from '@entities/pack';
 
 import { ROUTE } from '@shared/config';
 import { Emoji, Input, Link, Subtitle, Title } from '@shared/ui';
 
 import styles from './packs-page.module.scss';
 
-const PACKS = [
-  {
-    count: 12,
-    title:
-      'some long long long titlesome long long long titlesome long long long titlesome long long long title',
-    description:
-      'descriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptions'
-  }
-];
-
 const searchPacksFormScheme = z.object({
   search: z.string()
 });
 
-export const PacksPage = () => {
+export const PacksPage = observer(() => {
   const searchPacksForm = useForm({
     defaultValues: {
       search: ''
@@ -34,8 +25,8 @@ export const PacksPage = () => {
 
   const searchValue = searchPacksForm.watch('search');
 
-  const filteredPacks = PACKS.filter((pack) =>
-    pack.title.toLowerCase().includes(searchValue.toLowerCase())
+  const filteredPacks = packsStore.packs.filter((pack) =>
+    pack.name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
   return (
@@ -62,15 +53,15 @@ export const PacksPage = () => {
       )}
       {!!filteredPacks.length && (
         <section className={styles.list}>
-          {filteredPacks.map((_, id) => (
+          {filteredPacks.map((pack) => (
             <ReactRouterLink
-              key={id}
-              to={ROUTE.PACK(id)}
+              key={pack.id}
+              to={ROUTE.PACK(pack.id)}
             >
               <PackCard
-                count={12}
-                title="some long long long titlesome long long long titlesome long long long titlesome long long long title"
-                description="descriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptionsdescriptions descriptions"
+                title={pack.name}
+                description={pack.description}
+                count={pack.cards.length}
               />
             </ReactRouterLink>
           ))}
@@ -78,4 +69,4 @@ export const PacksPage = () => {
       )}
     </>
   );
-};
+});

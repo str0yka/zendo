@@ -10,12 +10,11 @@ export interface PackCardProps {
   count: number;
   title: string;
   description?: string;
+  tags?: string[];
   after?: React.ReactNode;
 }
 
-const TAGS = ['📖 english', '📖 russian', '📖 fr', '📖 gb', '📖 ge', '📖 ja'];
-
-export const PackCard = ({ count, title, description }: PackCardProps) => {
+export const PackCard = ({ count, title, description, tags }: PackCardProps) => {
   const visibleCount = numericFormatter(String(Math.min(count, MAX_VISIBLE_COUNT)), {
     thousandSeparator: ' ',
     ...(count > MAX_VISIBLE_COUNT && { suffix: '+' })
@@ -46,13 +45,13 @@ export const PackCard = ({ count, title, description }: PackCardProps) => {
             {description}
           </Subtitle>
         )}
-        {Math.round(Math.random() * 100) % 2 === 0 ? (
+        {tags && (
           <div className={styles.tags}>
-            {TAGS.map((tag) => (
+            {tags.map((tag) => (
               <Link className={styles.tag}>{tag}</Link>
             ))}
           </div>
-        ) : null}
+        )}
       </div>
     </article>
   );
