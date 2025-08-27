@@ -1,0 +1,47 @@
+.fieldContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldButton {
+  align-self: flex-end;
+}
+
+.header {
+  height: 98px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @include tablet {
+    height: 64px;
+  }
+}
+
+.tableContainer {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.table {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--color-gray-100);
+  border-left: 1px solid var(--color-gray-100);
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  padding-left: 12px;
+  border-bottom: 1px solid var(--color-gray-100);
+  border-right: 1px solid var(--color-gray-100);
+}
+
+.headerCell {
+  border-bottom: 2px solid var(--color-gray-100);
+}

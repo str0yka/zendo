@@ -7,3 +7,4 @@ export * from './ellipsis-text';
 export * from './input';
 export * from './emoji';
 export * from './button';
+export * from './textarea';
