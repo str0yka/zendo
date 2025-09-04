@@ -1,30 +1,25 @@
 import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
-import { v4 } from 'uuid';
 
-interface Card {
-  id: string;
-  front: string;
-  back: string;
-  availableIn: Date;
-}
+import { deserializePackStore, serializePackStore } from '../lib';
 
-interface Pack {
-  id: string;
-  name: string;
-  description?: string;
-  tags?: string[];
-  cards: Card[];
-}
+import type { Pack } from './pack';
+import { PackStore, type SerializedPackStore } from './pack-store';
 
 export class PacksStore {
-  packs: Pack[];
+  packs: PackStore[];
 
   constructor() {
     makeAutoObservable(this);
     makePersistable(this, {
       name: 'packs-store',
-      properties: ['packs'],
+      properties: [
+        {
+          key: 'packs',
+          serialize: (packs) => packs.map(serializePackStore),
+          deserialize: (packs: SerializedPackStore[]) => packs.map(deserializePackStore)
+        }
+      ],
       storage: window.localStorage
     });
 
@@ -32,13 +27,13 @@ export class PacksStore {
   }
 
   addPack({ name }: Pick<Pack, 'name'>) {
-    const pack: Pack = {
-      id: v4(),
-      name,
-      cards: []
-    };
+    const packStore = new PackStore({ name });
 
-    this.packs.push(pack);
+    this.packs.push(packStore);
+  }
+
+  getPack({ id }: Pick<Pack, 'id'>) {
+    return packsStore.packs.find((pack) => pack.id === id)!;
   }
 }
 

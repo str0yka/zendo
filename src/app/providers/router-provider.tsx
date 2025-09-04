@@ -1,6 +1,7 @@
 import { Outlet, RouterProvider as ReactRouterProvider, createBrowserRouter } from 'react-router';
 
 import { NotFoundPage } from '@pages/not-found';
+import { PackPage } from '@pages/pack';
 import { PacksPage } from '@pages/packs';
 import { PacksCreatePage } from '@pages/packs-create';
 
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: ROUTE.PACK_CREATE,
         element: <PacksCreatePage />
+      },
+      {
+        path: ROUTE.PACK(':id'),
+        element: <PackPage />
       }
     ],
     errorElement: (

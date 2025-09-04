@@ -15,8 +15,6 @@ const createPackFormScheme = z.object({
   name: z.string()
 });
 
-type CreatePackFormValues = z.infer<typeof createPackFormScheme>;
-
 export const PacksCreatePage = observer(() => {
   const navigate = useNavigate();
 
@@ -27,10 +25,10 @@ export const PacksCreatePage = observer(() => {
     resolver: zodResolver(createPackFormScheme)
   });
 
-  const onSubmit = ({ name }: CreatePackFormValues) => {
+  const onSubmit = createPackForm.handleSubmit(({ name }) => {
     packsStore.addPack({ name });
     navigate(ROUTE.PACKS);
-  };
+  });
 
   return (
     <div className={styles.container}>
@@ -39,7 +37,7 @@ export const PacksCreatePage = observer(() => {
       <Subtitle>come up with a name for your pack</Subtitle>
       <form
         className={styles.form}
-        onSubmit={createPackForm.handleSubmit(onSubmit)}
+        onSubmit={onSubmit}
       >
         <Controller
           control={createPackForm.control}
