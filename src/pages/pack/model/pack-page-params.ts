@@ -1,3 +1,1 @@
-export type PackPageParams = {
-  id: string;
-};
+export type PackPageParams = 'id';

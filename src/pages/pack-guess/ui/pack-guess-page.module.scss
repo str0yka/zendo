@@ -1,0 +1,21 @@
+.container {
+  height: calc(100vh - var(--zendo--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.actionsContainer {
+  position: absolute;
+  bottom: 48px;
+  display: grid;
+  grid-auto-columns: minmax(75px, fit-content);
+  grid-auto-flow: column;
+  gap: 8px;
+}
+
+.front {
+  color: var(--color-gray);
+}

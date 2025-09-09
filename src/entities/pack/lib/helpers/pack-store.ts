@@ -1,6 +1,6 @@
 import { PackStore, type SerializedPackStore } from '../../model';
 
-import { deserializeCard, serializeCard } from './card';
+import { deserializeCardStore, serializeCardStore } from './card-store';
 
 export const serializePackStore = ({
   id,
@@ -12,7 +12,7 @@ export const serializePackStore = ({
   id,
   name,
   description,
-  cards: cards.map(serializeCard),
+  cards: cards.map(serializeCardStore),
   tags
 });
 
@@ -27,6 +27,6 @@ export const deserializePackStore = ({
     id,
     name,
     description,
-    cards: cards.map(deserializeCard),
+    cards: cards.map(deserializeCardStore),
     tags
   });

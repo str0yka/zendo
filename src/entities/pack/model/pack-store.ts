@@ -1,14 +1,16 @@
 import { makeAutoObservable } from 'mobx';
 import { v4 } from 'uuid';
 
-import type { Card, SerializedCard } from './card';
+import { sample } from '@shared/lib';
+
+import type { CardStore, SerializedCardStore } from './card-store';
 import type { Pack } from './pack';
 
 export interface SerializedPackStore {
   id: string;
   name: string;
   description?: string;
-  cards: SerializedCard[];
+  cards: SerializedCardStore[];
   tags?: string[];
 }
 
@@ -16,7 +18,7 @@ export class PackStore implements Pack {
   id: string;
   name: string;
   description?: string;
-  cards: Card[];
+  cards: CardStore[];
   tags?: string[];
 
   constructor({
@@ -25,7 +27,7 @@ export class PackStore implements Pack {
     description,
     cards,
     tags
-  }: Pick<Pack, 'name'> & Partial<Omit<Pack, 'name'>>) {
+  }: Pick<PackStore, 'name'> & Partial<Omit<PackStore, 'name'>>) {
     makeAutoObservable(this);
 
     this.id = id ?? v4();
@@ -35,7 +37,16 @@ export class PackStore implements Pack {
     this.tags = tags ?? [];
   }
 
-  addCards({ cards }: Pick<Pack, 'cards'>) {
+  addCards({ cards }: Pick<PackStore, 'cards'>) {
     this.cards.push(...cards);
+  }
+
+  getAvailableCards() {
+    return this.cards.filter((card) => card.isAvailable);
+  }
+
+  getRandomAvailableCard(): CardStore | undefined {
+    console.log(this.getAvailableCards());
+    return sample(this.getAvailableCards());
   }
 }

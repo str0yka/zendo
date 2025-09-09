@@ -4,10 +4,3 @@ export interface Card {
   back: string;
   availableIn: Date;
 }
-
-export interface SerializedCard {
-  id: string;
-  front: string;
-  back: string;
-  availableIn: string;
-}

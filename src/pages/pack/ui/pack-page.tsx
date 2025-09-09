@@ -1,18 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { Fragment, useMemo } from 'react';
+import { Fragment } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useParams } from 'react-router';
+import { Link, useLoaderData, useParams } from 'react-router';
 import z from 'zod';
 
-import { isCardAvailable, packsStore } from '@entities/pack';
-
+import { ROUTE } from '@shared/config';
 import { Button, Text, Textarea, Title } from '@shared/ui';
 
 import { CARD_SEPARATOR, FRONT_BACK_SEPARATOR } from '../config';
 import { parseInputToCards } from '../lib';
-import type { PackPageParams } from '../model';
+import type { PackPageLoaderData, PackPageParams } from '../model';
 
 import styles from './pack-page.module.scss';
 
@@ -21,11 +20,10 @@ const addCardsFormScheme = z.object({
 });
 
 export const PackPage = observer(() => {
-  const params = useParams<PackPageParams>();
+  console.log('@');
 
-  const pack = useMemo(() => {
-    return packsStore.getPack({ id: params.id! });
-  }, [params.id]);
+  const params = useParams<PackPageParams>();
+  const { pack } = useLoaderData<PackPageLoaderData>();
 
   const addCardsForm = useForm({
     defaultValues: { input: '' },
@@ -35,15 +33,13 @@ export const PackPage = observer(() => {
   const onSubmit = addCardsForm.handleSubmit(({ input }) => {
     const cards = parseInputToCards(input);
 
-    console.log(cards);
-
     pack.addCards({ cards });
   });
 
   return (
     <>
       <div className={styles.header}>
-        <Button>start</Button>
+        <Button render={<Link to={ROUTE.PACK_GUESS(params.id!)} />}>start</Button>
       </div>
       <form
         className={styles.fieldContainer}
@@ -90,7 +86,7 @@ export const PackPage = observer(() => {
                 <Text>{card.back}</Text>
               </div>
               <div className={styles.cell}>
-                <Text>{isCardAvailable(card) ? 'yes' : 'no'}</Text>
+                <Text>{card.isAvailable ? 'yes' : 'no'}</Text>
               </div>
             </Fragment>
           ))}
