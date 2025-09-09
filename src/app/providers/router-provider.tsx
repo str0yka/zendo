@@ -1,7 +1,8 @@
 import { Outlet, RouterProvider as ReactRouterProvider, createBrowserRouter } from 'react-router';
 
 import { NotFoundPage } from '@pages/not-found';
-import { PackPage } from '@pages/pack';
+import { PackPage, packPageLoader } from '@pages/pack';
+import { PackGuessPage, packGuessPageLoader } from '@pages/pack-guess';
 import { PacksPage } from '@pages/packs';
 import { PacksCreatePage } from '@pages/packs-create';
 
@@ -20,15 +21,21 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <PacksPage />
+        Component: PacksPage
       },
       {
         path: ROUTE.PACK_CREATE,
-        element: <PacksCreatePage />
+        Component: PacksCreatePage
       },
       {
         path: ROUTE.PACK(':id'),
-        element: <PackPage />
+        Component: PackPage,
+        loader: packPageLoader
+      },
+      {
+        path: ROUTE.PACK_GUESS(':id'),
+        Component: PackGuessPage,
+        loader: packGuessPageLoader
       }
     ],
     errorElement: (
